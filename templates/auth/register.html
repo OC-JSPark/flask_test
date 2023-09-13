@@ -1,3 +1,5 @@
+{% include "_errors.html" %}
+
 <form method="POST" action="{{ url_for('auth.register')}}">
 
     {{ form.csrf_token}}
@@ -8,6 +10,6 @@
     
     {{ form.repassword.label }} {{ form.repassword(minlength=4, maxlength=20) }}
 
-    {{ form.errors }}
+
     <input type="submit" value="go">
 </form> 
