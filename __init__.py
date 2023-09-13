@@ -23,14 +23,45 @@ def create_app():
         return render_template('index.html')    # 자동으로 상대경로를 templates를 받는다.
 
     from googlekaap.forms.auth_form import loginForm, RegisterForm
-    @app.route('/auth/login')
+    @app.route('/auth/login', methods=['GET','POST'])
     def login():
         form = loginForm()
+
+        # POST,validate OK
+        if form.validate_on_submit():
+            ## TODO
+            # 1) 유저조회
+            # 2) 유저 이미 존재하는지 체크
+            # 3) 패스워드 정합확인
+            # 4) 로그인유지(세션)
+            user_id = form.data.get('user_id')
+            password = form.data.get('password') 
+            return f'{user_id}, {password}'
+        else:
+            # TODO: Error
+            pass 
         return render_template('login.html', form=form)
     
-    @app.route('/auth/register')
+    @app.route('/auth/register',methods=['GET','POST'])
     def register():
         form = RegisterForm()
+
+        if form.validate_on_submit():
+            ## TODO
+            # 1) 유저조회
+            # 2) 유저 이미 존재하는지 체크
+            # 3) 없으면 유저 생성
+            # 4) 로그인유지(세션)
+            user_id = form.data.get('user_id')
+            user_name = form.data.get('user_name')
+            password = form.data.get('password') 
+            repassword = form.data.get('repassword')
+            
+            return f'{user_id}, {user_name},{password},{repassword}'
+        else:
+            # TODO: Error
+            pass 
+
         return render_template('register.html', form=form)
 
     @app.route('/auth/logout')

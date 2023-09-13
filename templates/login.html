@@ -1,1 +1,16 @@
-{{ form }}
+
+<!-- 로그인과 회원가입할때는 POST method로 보낸다. action은 login page보게끔하자.
+즉 login함수를 실행한다는 뜻이고 init.py의 def login을 실행시킨다.url_for에는 함수명이 
+들어간다!! -->
+<form method="POST" action="{{ url_for('login')}}">
+    <!-- csrf token 넣어주고 
+    user_id는 최대,최소길이 지정-->
+    {{ form.csrf_token}}
+    {{ form.user_id.label }} {{ form.user_id(minlength=4, maxlength=20) }}
+    {{ form.password.label }} {{ form.password(minlength=4, maxlength=20) }}
+    
+    <!-- 그리고 validator 처리한것과 에러같은것은 
+    flask form안에서 errors하면 해당 에러 확인가능-->
+    {{ form.errors }}
+    <input type="submit" value="go">
+</form> 
