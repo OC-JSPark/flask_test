@@ -9,6 +9,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = 'secretkey'
+    app.config['SESSION_COOKIE_NAME'] = 'googlekaap'
 
 
     if app.config['DEBUG']: #true일때
