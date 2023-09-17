@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, session, request
 from googlekaap.forms.auth_form import loginForm, RegisterForm
+from googlekaap.models.user import User as UserModel
 from werkzeug import security
 
 
