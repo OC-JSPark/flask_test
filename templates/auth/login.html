@@ -1,17 +1,63 @@
+<!--
 {% include "_errors.html" %}
+-->
 
-<!-- 로그인과 회원가입할때는 POST method로 보낸다. action은 login page보게끔하자.
-즉 login함수를 실행한다는 뜻이고 init.py의 def login을 실행시킨다.url_for에는 함수명이 
-들어간다!! -->
-<form method="POST" action="{{ url_for('auth.login')}}">
-    <!-- csrf token 넣어주고 
-    user_id는 최대,최소길이 지정-->
-    {{ form.csrf_token}}
-    {{ form.user_id.label }} {{ form.user_id(minlength=4, maxlength=20) }}
-    {{ form.password.label }} {{ form.password(minlength=4, maxlength=20) }}
-    
-    <!-- 그리고 validator 처리한것과 에러같은것은 
-    flask form안에서 errors하면 해당 에러 확인가능-->
+{% extends "/layout.html" %}
 
-    <input type="submit" value="go">
-</form> 
+{% block title -%}
+    Login
+{%- endblock %}
+
+{% from "_mdlforms.html" import render_text_field %}
+
+{% block body -%}
+    <div class="mdl-grid">
+        {% include "_errors.html" %}
+        <div class="mdl-cell mdl-cell--4-col"></div>
+        <div class="mdl-cell mdl-cell--4-col">
+            <div class="mdl-card-wide mdl-card mdl-shadow--2dp">
+                <!-- 로그인과 회원가입할때는 POST method로 보낸다. action은 login page보게끔하자.
+                    즉 login함수를 실행한다는 뜻이고 init.py의 def login을 실행시킨다.url_for에는 함수명이 들어간다!! -->
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    <!-- csrf token 넣어주고  user_id는 최대,최소길이 지정-->
+                    {{ form.csrf_token }}
+                    <div class="mdl-card__title">
+                        <div id="logo">
+                            <span class="material-icons">
+                                article
+                            </span>
+                        </div>
+                        <span id="logoTitle" class="mdl-card__title-text">
+                            <a href="/">Kaap</a>: Login
+                        </span>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <!--TODO: Macro 만들기-->
+                        {{ render_text_field(form.user_id, minlength=4, maxlenght=20) }}
+                        {{ render_text_field(form.password, minlength=4, maxlenght=20) }}
+                        <!-- {{ form.user_id.label }} {{ form.user_id(minlength=4, maxlength=20) }}
+                        {{ form.password.label }} {{ form.password(minlength=4, maxlength=20) }} -->
+                        <!-- 그리고 validator 처리한것과 에러같은것은 flask form안에서 errors하면 해당 에러 확인가능-->
+
+                    </div>
+
+                    <div class="mdl-card__actions mdl-card--border">
+                        <div class="mdl-grid">
+                            <button class="mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                Login
+                            </button>
+                        </div>
+
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <a href="{{ url_for('auth.register') }}">회원가입</a>
+                                <a href="{{ url_for('base.index') }}" style="float: right">홈</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="mdl-cell mdl-cell--4-col"></div>
+    </div>
+{%- endblock %}

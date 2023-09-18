@@ -1,0 +1,15 @@
+{% macro render_text_field(field) %}
+<!-- (field)는 기존 macro만드는것에서 form.user_id을 받아서 사용할것이다.-->
+    <!--  // form.user_id.label //  // form.user_id(minlength=4, maxlength=20) // -->
+
+
+<!-- login.html에서 기존꺼에서 width값을 100%처리해서 줄바꿈 처리하게 해주자.-->
+<div style="width:100%;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <!-- 이제 field는 만들었으니, label을 만들어보자. field만들때 여러가지 인자들을 가지고 온다.-->
+    <!--{{ kwargs }}  이건 화면에 찍히는거 확인하려고 넣어본것!-->
+    {{ field(class="mdl-textfield__input", **kwargs) }}
+    {{ field.label(class="mdl-textfield__label") }}
+</div>
+{% endmacro %}
+
+
