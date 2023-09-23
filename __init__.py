@@ -16,6 +16,7 @@ def create_app():
     app.config['SESSION_COOKIE_NAME'] = 'googlekaap'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/googlekaap?charset=utf8' ## /googlekaap은 db명을 넣는것이다.
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list' 
 
     if app.config['DEBUG'] == True: #true일때
         app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1 # 1s로 바꾸니 바로 갱신될것이다.

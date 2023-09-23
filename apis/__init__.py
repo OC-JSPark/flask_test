@@ -1,5 +1,6 @@
 from flask_restx import Api
 from flask import Blueprint
+from .user import ns as UserNamespace   ## user.py에 있는 ns가 import 된다.
 
 ## 1. bp = Blueprint(NAME, __name__, url_prefix='/auth') # blueprint아래에 작성되는 라우터는 모두 prefix를 auth를 갖게된다.공통관리가능. 
 ## 1-1. blueprint initialize한거와 동일한 구조이다.
@@ -20,6 +21,6 @@ api = Api(
 )
 
 # TODO: add namespace to Blueprint 
-
+api.add_namespace(UserNamespace)
 
 
