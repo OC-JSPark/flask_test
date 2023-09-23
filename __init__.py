@@ -21,6 +21,9 @@ def create_app():
         app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1 # 1s로 바꾸니 바로 갱신될것이다.
         app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+    """ === CSRF Init === """
+    csrf.init_app(app)
+
 
     """ === Database Init === """
     db.init_app(app)
@@ -36,11 +39,12 @@ def create_app():
     app.register_blueprint(base_route.bp)
     app.register_blueprint(auth_route.bp)
 
+    ''' Restx INIT '''
+    from googlekaap.apis import blueprint as api
+    app.register_blueprint(api)
 
 
-    """ === CSRF Init === """
-    csrf.init_app(app)
-
+ 
 
     """ REQUEST HOOK """
     @app.before_request
