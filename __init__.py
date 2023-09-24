@@ -18,9 +18,10 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list' 
 
-    if app.config['DEBUG'] == True: #true일때
+    if app.config['DEBUG'] == True: #true일때 (debug환경일때) 
         app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1 # 1s로 바꾸니 바로 갱신될것이다.
         app.config['TEMPLATES_AUTO_RELOAD'] = True
+        app.config['WTF_CSRF_ENABLED'] = False  ## api test할때 CSRF token is mission error 발생하는데 post method 보낼때 CSRF token을 같이 실어서 보내준다. 지금 문서화에서는 해당작업을 안했기에 이런 에러가 뜬다.
 
     """ === CSRF Init === """
     csrf.init_app(app)
