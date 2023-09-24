@@ -8,20 +8,20 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 # flask run -> create_app()
-def create_app():
+def create_app(config=None):  
     print('run: create_app()')
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'secret'
-    app.config['SESSION_COOKIE_NAME'] = 'googlekaap'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/googlekaap?charset=utf8' ## /googlekaap은 db명을 넣는것이다.
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list' 
-
-    if app.config['DEBUG'] == True: #true일때 (debug환경일때) 
-        app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1 # 1s로 바꾸니 바로 갱신될것이다.
-        app.config['TEMPLATES_AUTO_RELOAD'] = True
-        app.config['WTF_CSRF_ENABLED'] = False  ## api test할때 CSRF token is mission error 발생하는데 post method 보낼때 CSRF token을 같이 실어서 보내준다. 지금 문서화에서는 해당작업을 안했기에 이런 에러가 뜬다.
+    """ Flask Configs """
+    from .configs import DevelomentConfig, ProductionConfig
+    ## init 되는 config가 없을때는 기본값설정해주기
+    if not config:
+        if app.config['DEBUG']:
+            config = DevelomentConfig()
+        else:
+            config= ProductionConfig()
+    print('run with :', config)
+    app.config.from_object(config)
 
     """ === CSRF Init === """
     csrf.init_app(app)
