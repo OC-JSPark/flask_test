@@ -1,17 +1,3 @@
-import sys
-sys.path.append('.')        ## googlekaap에 있는거 가져올때는 이코드를 넣어줘야 좋다.
-
-from googlekaap.configs import TestingConfig
-from googlekaap import create_app
-import pytest
-
-@pytest.fixture
-def client():
-    app = create_app(TestingConfig())
-
-    with app.test_client() as client:
-        yield client
- 
 def test_auth(client):
     r= client.get(
         '/auth/register',
